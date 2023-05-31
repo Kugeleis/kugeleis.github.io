@@ -25,3 +25,4 @@ Here's a new paragraph for you.
 
 ## Contact
 Email me, [tom@tomjack.ca](mailto:tom@tomjack.ca).
+![](./assets/svg/email.svg)
