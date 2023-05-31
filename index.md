@@ -25,4 +25,7 @@ Here's a new paragraph for you.
 
 ## Contact
 Email me, [tom@tomjack.ca](mailto:tom@tomjack.ca).
-![](./assets/svg/email.svg)
+![](./assets/svg/email.svg)  
+<br>
+this should work <a href="&ouml;">  
+cryptomail: <a href="#" class="cryptedmail" data-davor="stuttgart43" data-wohin="juweliere-kraemer" data-ende="de" ></a>
