@@ -1,0 +1,15 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+<foreignObject width="100" height="100">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+        <ul>
+            <li>text</li>
+        </ul>
+        <a href="#" class="cryptedmail" data-davor="mail" data-wohin="mydomain" data-ende="de" ></a>
+    </div>
+    <style>
+      .cryptedmail:after {
+        content: attr(data-davor) "@" attr(data-wohin) "." attr(data-ende);
+      }
+    </style>
+</foreignObject>
+</svg>
