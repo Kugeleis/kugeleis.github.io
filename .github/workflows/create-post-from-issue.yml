@@ -24,46 +24,60 @@ jobs:
           TITLE="$ISSUE_TITLE"
           BODY="$ISSUE_BODY"
 
-          # Extract tags if specified in body with "Tags: tag1, tag2"
-          if echo "$BODY" | grep -q "Tags:"; then
-            TAGS=$(echo "$BODY" | grep "Tags:" | sed 's/Tags://' | tr -d '\r')
-            # Remove the Tags line from the body
-            BODY=$(echo "$BODY" | grep -v "Tags:")
-          else
-            TAGS=""
-          fi
+          # Extract categories and tags if specified in body
+          CATEGORIES=$(echo "$BODY" | grep -i "^Categories:" | head -n 1 | sed 's/[Cc]ategories://' | tr -d '\r' | xargs)
+          TAGS=$(echo "$BODY" | grep -i "^Tags:" | head -n 1 | sed 's/[Tt]ags://' | tr -d '\r' | xargs)
 
-          # Create filename-friendly slug
-          SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -dc 'a-z0-9-')
+          # Clean the body from metadata lines
+          CLEAN_BODY=$(echo "$BODY" | grep -vEi "^(Categories|Tags):")
+
+          # Create filename-friendly slug with German umlaut handling
+          SLUG=$(echo "$TITLE" | sed 's/ä/ae/g;s/ö/oe/g;s/ü/ue/g;s/Ä/Ae/g;s/Ö/Oe/g;s/Ü/Ue/g;s/ß/ss/g' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -dc 'a-z0-9-' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
+
           DATE=$(date +%Y-%m-%d)
           YEAR=$(date +%Y)
+          MONTH=$(date +%m)
+          DAY=$(date +%d)
 
-          # Create post file with front matter in yearly directory
-          mkdir -p "_posts/$YEAR"
+          # Escape double quotes in title for YAML
+          ESCAPED_TITLE=$(echo "$TITLE" | sed 's/"/\\"/g')
 
           # Write front matter and content
+          # Formatting categories and tags as YAML arrays
+          CAT_YAML=$(echo "$CATEGORIES" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | paste -sd ',' - | sed 's/,/, /g')
+          TAGS_YAML=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | paste -sd ',' - | sed 's/,/, /g')
+
           {
             printf '%s\n' '---'
             printf '%s\n' 'layout: post'
-            printf 'title: "%s"\n' "$TITLE"
+            printf 'title: "%s"\n' "$ESCAPED_TITLE"
             printf 'date: %s\n' "$(date +"%Y-%m-%d %H:%M:%S")"
-            printf 'tags: %s\n' "$TAGS"
+            if [ -n "$CATEGORIES" ]; then printf 'categories: [%s]\n' "$CAT_YAML"; fi
+            if [ -n "$TAGS" ]; then printf 'tags: [%s]\n' "$TAGS_YAML"; fi
             printf '%s\n\n' '---'
-            printf '%s\n' "$BODY"
-          } > "_posts/$YEAR/$DATE-$SLUG.markdown"
+            printf '%s\n' "$CLEAN_BODY"
+          } > "_posts/$DATE-$SLUG.markdown"
 
           # Configure git
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
           # Commit and push
-          git add "_posts/$YEAR/$DATE-$SLUG.markdown"
+          git add "_posts/$DATE-$SLUG.markdown"
           git commit -m "Add new post: $TITLE"
+          git pull --rebase
           git push
 
-          # Set output for next step
-          POST_URL="https://alexanderle.com/${SLUG}"
-          echo "post_url=${POST_URL}" >> $GITHUB_OUTPUT
+          # Set output for next step (Jekyll default permalink structure)
+          CAT_PATH=$(echo "$CATEGORIES" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | paste -sd '/' -)
+          if [ -n "$CAT_PATH" ]; then
+            POST_PATH="${CAT_PATH}/${YEAR}/${MONTH}/${DAY}/${SLUG}.html"
+          else
+            POST_PATH="${YEAR}/${MONTH}/${DAY}/${SLUG}.html"
+          fi
+
+          SITE_URL=$(grep "^url:" _config.yml | sed 's/url:[[:space:]]*//;s/"//g;s/'\''//g')
+          echo "post_url=${SITE_URL}/${POST_PATH}" >> $GITHUB_OUTPUT
 
       - name: Comment on issue
         uses: actions/github-script@v6
