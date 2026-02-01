@@ -1,5 +1,8 @@
 <div class="header">
-    <h1>{{ site.title }}</h1>
+    <h1 style="display: flex; align-items: center;">
+        <img src="{{ '/favicon.svg' | relative_url }}" alt="favicon" style="height: 1em; width: auto; margin-right: 10px; filter: drop-shadow(0 0 0 transparent) brightness(0) invert(1); background: transparent;">
+        {{ site.title }}
+    </h1>
     <br>
     <h5><i>{{ site.description }}</i></h5>
     <br>
