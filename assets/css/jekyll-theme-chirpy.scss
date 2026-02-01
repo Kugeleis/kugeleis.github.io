@@ -1,0 +1,139 @@
+---
+---
+
+/* Fix: Use a standard import. Jekyll's Sass engine typically 
+  handles the 'main' file. If you need conditional bundling, 
+  it's better handled in your HTML head or via separate files.
+*/
+@use 'main';
+
+/* Lightspeed Theme Colors & Typography Customization */
+
+:root {
+  /* Colors */
+  --text-color: #c5ccce;
+  --bg-color: #282f3a;
+  --heading-color: #dcdede;
+  --link-color: #7e92a2;
+  --border-color: #3a4350;
+  --code-bg: #1f252e;
+  --blockquote-color: #7e92a2;
+  --tag-hover-bg: #7e92a2;
+  
+  /* Typography */
+  --font-family-base: "Courier New", "Helvetica", sans-serif;
+}
+
+/* Base typography */
+body {
+  font-family: var(--font-family-base);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Enforce a single font family on common content elements while excluding
+   icon elements (e.g. <i>, <svg>, Font Awesome classes) so icon fonts are
+   not broken. Using a focused selector set avoids unexpected side-effects. */
+html {
+  font-family: var(--font-family-base) !important;
+}
+
+/* Most visible content elements */
+html, body, header, main, nav, footer, section, article, aside,
+div, p, ol, ul, li, a, span, h1, h2, h3, h4, h5, h6,
+button, input, textarea, select, label, table, th, td, tr,
+code, pre, kbd, samp {
+  font-family: var(--font-family-base) !important;
+}
+
+/* Keep icon elements untouched so icon fonts continue to render */
+/* Icon fonts are provided by the theme (Font Awesome / material icons).
+  Do not override their `font-family` here so glyphs keep rendering. */
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--heading-color);
+  }
+}
+
+/* Bold text */
+strong, b {
+  color: var(--heading-color);
+}
+
+/* Code and pre blocks */
+code, pre {
+  background-color: var(--code-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--link-color);
+  color: var(--blockquote-color);
+  padding-left: 1rem;
+  margin-left: 0;
+}
+
+/* Tags and categories */
+.tag, .category {
+  background-color: var(--border-color);
+  color: var(--text-color);
+  border: 1px solid #4a5460;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  
+  &:hover {
+    background-color: var(--tag-hover-bg);
+    color: var(--bg-color);
+  }
+}
+
+/* Post meta information */
+.post-meta {
+  color: var(--link-color);
+}
+
+/* Footer */
+footer {
+  background-color: var(--code-bg);
+  color: var(--link-color);
+  border-top: 1px solid var(--border-color);
+  
+  a {
+    color: var(--link-color);
+    
+    &:hover {
+      color: var(--heading-color);
+    }
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--bg-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* Pagination */
+.pagination a {
+  color: var(--link-color);
+  
+  &:hover {
+    background-color: var(--border-color);
+    color: var(--heading-color);
+  }
+}
