@@ -3,6 +3,8 @@
 source "https://rubygems.org"
 
 gem "jekyll-theme-chirpy", "~> 7.4", ">= 7.4.1"
+gem "csv", "~> 3.0"
+gem "base64", "~> 0.1"
 
 gem "html-proofer", "~> 5.0", group: :test
 
