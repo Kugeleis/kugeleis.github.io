@@ -2,7 +2,8 @@
 layout: post
 title: "Eine Seite mit Bild"
 date: 2026-02-01 13:30:52
-tags: 
+categories: [Blogging]
+tags: [Bild, Test]
 ---
 
 Das ist ein Beitrag mit Bild
