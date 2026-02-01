@@ -1,7 +1,8 @@
 ---
-layout: default
-title: About
-permalink: /about/
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+title: Über
 ---
 
 # About This Blog
