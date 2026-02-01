@@ -1,3 +1,0 @@
-.cryptedmail:after {
-content: attr(data-davor) "@" attr(data-wohin) "." attr(data-ende);
-}
