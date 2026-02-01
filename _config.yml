@@ -1,7 +1,55 @@
+# Site Specific Configuration
+sitename: "Bike in Japan"
+name: "Bike in Japan"
 title: Bike in Japan
 description: Mit dem Rad durch Japan
-remote_theme: tajacks/lightspeed
 url: "https://kugeleis.github.io"
+baseurl: ""
+author: 
+  name: kugeleis
+  github: Kugeleis
+
+# Theme and Plugins
+remote_theme: tajacks/lightspeed
 plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
   - jekyll-feed
   - jekyll-remote-theme
+
+
+# Navigation Links
+nav:
+  - title: Home
+    url: /
+  - title: Posts
+    url: /posts/
+  - title: About
+    url: /about/
+
+# Keywords - important for SEO
+keywords:
+  - travel
+  - japan
+  - biking
+  - adventure
+  - bike touring japan
+  - cycling japan
+  - bikepacking japan
+  - shimanami kaido
+  - shimanami kaido cycling
+  - hokkaido cycling
+  - self-guided cycling japan
+  - cycle-friendly accommodation japan
+  - best time to cycle japan
+  - japan cycle maps
+  - bicycle shipping japan
+  - cycle luggage shipping japan
+  - bikepacking gear japan
+  - packing list bike touring japan
+  - japan cycling safety tips
+  - japan cycling laws
+  - cycle ferry japan
+  - road cycling japan
+  - cycling festivals japan
+  - solo bike trip japan
