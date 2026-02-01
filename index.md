@@ -3,8 +3,6 @@ layout: default
 title: Startseite
 ---
 
-*Bike in Japan* - mit dem Fahrrad durch Japan
-
 ## Neue Artikel
 
 {% for post in site.posts %}

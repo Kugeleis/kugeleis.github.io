@@ -1,13 +1,9 @@
 # Site Specific Configuration
-sitename: "Bike in Japan"
-name: "Bike in Japan"
 title: Bike in Japan
 description: Mit dem Rad durch Japan
 url: "https://kugeleis.github.io"
 baseurl: ""
-author: 
-  name: kugeleis
-  github: Kugeleis
+author: kugeleis
 
 # Theme and Plugins
 remote_theme: tajacks/lightspeed
@@ -16,16 +12,25 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-remote-theme
+  - jekyll-paginate-v2
 
+# Paginate
+pagination:
+  enabled: true
+  per_page: 5
+  sort_field: 'date'
+  sort_reverse: true
 
-# Navigation Links
-nav:
-  - title: Home
-    url: /
-  - title: Posts
-    url: /posts/
-  - title: About
-    url: /about/
+# Category Paginating
+autopages:
+  enabled: true
+  categories:
+    title: 'Posts in category :cat'
+    permalink: '/category/:cat'
+    silent: false
+
+# Exclusions
+exclude: [ 'README.md', 'LICENSE', 'Gemfile', 'Gemfile.lock', '.github' ]
 
 # Keywords - important for SEO
 keywords:
